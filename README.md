@@ -1,24 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Tsak
 
-Things you may want to cover:
+| Columu  | Date   |
+|---------|--------|
+| title   | string |
+| content | text   |
 
-* Ruby version
+- User
 
-* System dependencies
+| Columu  | Date   |
+|---------|--------|
+| user    | string |
+| email   | string |
+| password| string |
+| password_digest | string |
 
-* Configuration
+- Label
 
-* Database creation
+| Columu  | Date   |
+|---------|--------|
+| name    | string |
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
