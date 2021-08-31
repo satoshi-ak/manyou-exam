@@ -4,7 +4,38 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all.order(created_at: :desc)
+    @tasks = @tasks.expired if params[:sort_expired]
+    @tasks = @tasks.priority_sort if params[:sort_priority]
+
+    @tasks = @tasks.search_title(params[:title]) if params[:title]
+    @tasks = @tasks.search_status(params[:status]) if params[:status] && params[:status] != ""
+    @tasks = @tasks.page(params[:page]).per(5)
   end
+
+    # if params[:sort_expired] = true
+    #   @tasks = Task.all.order(expired_at: :asc)
+    # elsif params[:sort_priority]
+    #   @tasks = Task.all.order(priority: :asc)
+    # else
+    #   @tasks = Task.all.order(created_at: :desc)
+    # end
+    # if params[:search].present?
+    #   if params[:title].present? && params[:status].present?
+    #     @tasks = Task.search_title(params[:title]).search_status(params[:status])
+    #   elsif params[:title].present?
+    #     @tasks = Task.search_title(params[:title])
+    #   elsif params[:status].present?
+    #     @tasks = Task.search_status(params[:status])
+    #   elsif params[:priority].present? 
+    #     @tasks = Task.priority_sort(params[:priority])
+    #   elsif params[:expired].present?
+    #     @tasks = Task.expired_sort(params[:expired])
+    #   else
+    #     @tasks = Task.all
+    #   end
+    # end
+    # @tasks = @tasks.page(params[:page]).per(5)
+  # end
 
   # GET /tasks/1 or /tasks/1.json
   def show
@@ -64,6 +95,7 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :content)
+      params.require(:task).permit(:title, :content, :expired_at, :status, :priority)
     end
+
 end

@@ -12,16 +12,32 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
+    <%= form.label :title, "タイトル" %>
     <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :content %>
+    <%= form.label :content,"内容" %>
     <%= form.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expired_at, "終了期限" %>
+    <%= form.date_select :expired_at%>
+  </div>
+
+  <div class="field">
+    <%= form.label :status, "ステータス" %>
+    <%= form.select :status, Task.statuses.keys %>
+  </div>
+
+  <div class="field">
+    <%= form.label :priority, "優先度" %>
+    <%= form.select :priority, Task.priorities.keys %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+
 <% end %>
