@@ -1,7 +1,7 @@
 <h1>管理画面ユーザー一覧<h1>
-<table class="table table-bordered">
-<%= link_to '新規ユーザー登録', new_admin_user_path %>
 <%= link_to 'タスク一覧画面へ戻る', tasks_path %></td>
+
+<table class="table">
 
   <thead>
     <tr>
@@ -27,3 +27,5 @@
    <% end %>
   </tbody>
 </table> 
+
+<%= link_to '新規ユーザー作成', new_admin_user_path %>

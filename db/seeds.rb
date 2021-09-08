@@ -13,7 +13,7 @@ User.create!(
   admin: 'true',
 )
 
-50.times do |n|
+10.times do |n|
   name = Faker::Games::Pokemon.name
   email = Faker::Internet.email
   password = "password"

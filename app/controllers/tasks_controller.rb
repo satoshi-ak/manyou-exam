@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
   skip_before_action :login_required, only: [:new, :create, :show, :edit, :destroy]
+  before_action :set_task, only: %i[ show edit update destroy ]
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all.order(created_at: :desc)
