@@ -1,9 +1,11 @@
 class TasksController < ApplicationController
+  skip_before_action :login_required, only: [:new, :create, :show, :edit, :destroy]
   before_action :set_task, only: %i[ show edit update destroy ]
-
+  
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks
+    @tasks = @tasks.order(created_at: :desc)
     @tasks = @tasks.expired if params[:sort_expired]
     @tasks = @tasks.priority_sort if params[:sort_priority]
 
@@ -12,30 +14,7 @@ class TasksController < ApplicationController
     @tasks = @tasks.page(params[:page]).per(5)
   end
 
-    # if params[:sort_expired] = true
-    #   @tasks = Task.all.order(expired_at: :asc)
-    # elsif params[:sort_priority]
-    #   @tasks = Task.all.order(priority: :asc)
-    # else
-    #   @tasks = Task.all.order(created_at: :desc)
-    # end
-    # if params[:search].present?
-    #   if params[:title].present? && params[:status].present?
-    #     @tasks = Task.search_title(params[:title]).search_status(params[:status])
-    #   elsif params[:title].present?
-    #     @tasks = Task.search_title(params[:title])
-    #   elsif params[:status].present?
-    #     @tasks = Task.search_status(params[:status])
-    #   elsif params[:priority].present? 
-    #     @tasks = Task.priority_sort(params[:priority])
-    #   elsif params[:expired].present?
-    #     @tasks = Task.expired_sort(params[:expired])
-    #   else
-    #     @tasks = Task.all
-    #   end
-    # end
-    # @tasks = @tasks.page(params[:page]).per(5)
-  # end
+    
 
   # GET /tasks/1 or /tasks/1.json
   def show
@@ -53,7 +32,7 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-
+    @task.user_id = current_user.id
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: "Task was successfully created." }

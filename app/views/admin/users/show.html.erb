@@ -1,0 +1,31 @@
+<h4><%= @user.name %>のページ</h4>
+<p>メールアドレス: <%= @user.email %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>タスク</th>
+      <th>詳細</th>
+      <th>期限</th>
+      <th>ステータス</th>
+      <th>優先度</th>
+      <th>閲覧</th>
+      <th>編集</th>
+      <th>削除</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.tasks.each do |task| %>
+      <tr>
+        <td id = 'task_list' ><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.expired_at %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+        <td>><%= link_to '詳細', task %></td>
+        <td><%= link_to '編集', edit_task_path(task) %>></td>
+        <td><%= link_to '削除', task, method: :delete, data: { confirm: '削除しますか？' } %></td>
+       </tr>
+    <% end %>
+  </tbody>
+</table>
