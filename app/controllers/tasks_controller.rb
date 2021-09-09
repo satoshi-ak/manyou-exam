@@ -1,9 +1,11 @@
 class TasksController < ApplicationController
   skip_before_action :login_required, only: [:new, :create, :show, :edit, :destroy]
   before_action :set_task, only: %i[ show edit update destroy ]
+  
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks
+    @tasks = @tasks.order(created_at: :desc)
     @tasks = @tasks.expired if params[:sort_expired]
     @tasks = @tasks.priority_sort if params[:sort_priority]
 
@@ -21,10 +23,6 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-  end
-  def confirm
-    @task = current_user.tasks.build(task_params)
-    render :new if @task.invalid?
   end
 
   # GET /tasks/1/edit

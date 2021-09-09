@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
+  validates :user_id, presence: true
   scope :expired, -> {reorder(expired_at: :desc)}
 
   scope :search_title, -> (title) {

@@ -3,6 +3,7 @@ RSpec.describe 'ユーザー登録のテスト', type: :system do
   before do
     @user = FactoryBot.create(:user,name: 'user01', email: 'user01@test.com')
     @second_user = FactoryBot.create(:second_user,name: 'user02', email: 'user02@test.com')
+    @third_user = FactoryBot.create(:third_user,name: 'user03', email: 'user05@test.com')
     FactoryBot.create(:task, user:@user)
   end
   describe 'ユーザーの新規登録' do
