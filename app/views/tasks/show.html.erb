@@ -29,5 +29,12 @@
   <%= @task.priority %>
 </p>
 
+<p>
+<strong>Label:</strong>
+  <% @task.labels.each do |label| %>
+    <%= label.name %> 
+</p>    
+  <% end %>
+
 <%= link_to '編集', edit_task_path(@task) %> |
 <%= link_to '戻る', tasks_path %>

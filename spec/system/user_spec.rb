@@ -119,7 +119,6 @@ RSpec.describe 'ユーザー登録のテスト', type: :system do
         fill_in 'user[email]', with: 'ueer04@test.com'
         fill_in 'user[password]', with: 'password'
         fill_in 'user[password_confirmation]', with: 'password'
-        #binding.irb
         click_button'更新する'
         expect(page).to have_content 'ユーザーを更新しました'
       end
