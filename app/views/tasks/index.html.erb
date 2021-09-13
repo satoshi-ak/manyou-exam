@@ -10,8 +10,8 @@
           <td><%= form.text_field :title %></td>
           <th><%= form.label :'ステータス' %></th>
           <td><%= form.select :status, Task.statuses.keys, include_blank: true %></td>
-          <th><%= form.label :'優先度' %></th>
-          <!-- <td><%#= form.select :priority, Task.priorities.keys, include_blank: true %></td> -->
+          <th><%= form.label :'ラベル' %></th>
+          <th><%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %></td>
           <td><%= form.submit '検索', title: 'search' %></td>
         </tr>
       <% end %>
@@ -30,6 +30,7 @@
       <th>登録日時</th>
       <th>ステータス</th>
       <th>優先度</th>
+      <th>ラベル</th>
     </tr>
   </thead>
 
@@ -42,6 +43,11 @@
         <td><%= task.created_at %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
+        <td>
+          <% task.labels.each do |label| %>
+            <%= label.name %>
+          <% end %>
+        </td>
         <td><button type="button" class="btn btn-info"><%= link_to '詳細', task %>
         <td><button type="button" class="btn btn-success"><%= link_to '編集', edit_task_path(task) %></td>
         <td><button type="button" class="btn btn-danger"><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
